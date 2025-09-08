@@ -28,6 +28,14 @@ const rules = {
     rock: "Spock vaporizes Rock!",
   },
 };
+// Colors for Output
+const red = "\x1b[31m";
+const green = "\x1b[32m";
+const blue = "\x1b[34m";
+const magenta = "\x1b[35m";
+const cyan = "\x1b[36m";
+const yellow = "\x1b[33m";
+const reset = "\x1b[0m";
 
 // Player Input
 const args = process.argv.slice(2);
@@ -35,7 +43,9 @@ const args = process.argv.slice(2);
 if (args.length === 0) {
   //   Inform Player of forgotten Input and show List of valid Moves
   console.log(
-    "ERROR: Player didn't select a Move! Please choose between: Rock, Paper, Scissors, Lizard and Spock!"
+    red +
+      "ERROR: Player didn't select a Move! Please choose between: Rock, Paper, Scissors, Lizard and Spock!" +
+      reset
   );
   return;
 }
@@ -47,50 +57,100 @@ const moves = ["rock", "paper", "scissors", "lizard", "spock"];
 if (!moves.includes(player)) {
   //   Inform Player of invalid Move and show List of valid Moves
   console.log(
-    "ERROR: Invalid Move! Please choose between: Rock, Paper, Scissors, Lizard and Spock!"
+    red +
+      "ERROR: Invalid Move! Please choose between: Rock, Paper, Scissors, Lizard and Spock!" +
+      reset
   );
   return;
 }
 // Generate CPU move
 const computer = moves[Math.floor(Math.random() * moves.length)];
 // Final result Variables
-let result = "No Result!";
-let message = "No Winner!";
+let result = cyan + "No Result!" + reset;
+let message = cyan + "No Winner!" + reset;
 
 // Generate Match Up String
 const matchUp =
-  " PLAYER --| " +
+  blue +
+  " PLAYER" +
+  cyan +
+  " --| " +
+  yellow +
   player.toUpperCase() +
   " " +
+  blue +
   rules[player].img +
-  " |-- VS --| " +
+  cyan +
+  " |--" +
+  yellow +
+  " VS" +
+  cyan +
+  " --| " +
+  red +
   rules[computer].img +
   " " +
+  yellow +
   computer.toUpperCase() +
-  " |-- CPU";
+  cyan +
+  " |--" +
+  red +
+  " CPU" +
+  reset;
 
 // Game Logic
 
 // Check if Draw occurs
 if (player === computer) {
-  result = ">=======================> DRAW <=====================<";
+  result =
+    magenta +
+    ">=======================>" +
+    yellow +
+    " DRAW" +
+    magenta +
+    " <=====================<" +
+    reset;
   // Check if Player wins
 } else if (rules[player][computer]) {
-  result = ">========================> WIN <=====================<";
+  result =
+    magenta +
+    ">========================>" +
+    green +
+    " WIN" +
+    magenta +
+    " <=====================<" +
+    reset;
   message = rules[player][computer];
   // Generate Player Loss messages
 } else {
-  result = ">=======================> LOSS <=====================<";
+  result =
+    ">=======================>" +
+    red +
+    " LOSS" +
+    magenta +
+    " <=====================<" +
+    reset;
   message = rules[computer][player];
 }
 
 // Output
-console.log("======================================================");
-console.log(">=====> ROCK, PAPER, SCISSORS, LIZARD, SPOCK! <======<");
-console.log("======================================================");
+console.log(magenta + "======================================================");
+console.log(
+  ">=====>" +
+    cyan +
+    " ROCK, PAPER, SCISSORS, LIZARD, SPOCK!" +
+    magenta +
+    " <======<"
+);
+console.log("======================================================" + reset);
 console.log(matchUp);
-console.log("======================================================");
-console.log(">=======================> " + message);
-console.log("======================================================");
+console.log(
+  magenta + "======================================================" + reset
+);
+console.log(magenta + ">=======================> " + cyan + message + reset);
+console.log(
+  magenta + "======================================================" + reset
+);
 console.log(result);
-console.log("======================================================");
+console.log(
+  magenta + "======================================================" + reset
+);
