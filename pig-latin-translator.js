@@ -29,6 +29,7 @@ const specialChars = [
   "<",
   ">",
   "/",
+  ".",
 ];
 // Input
 let args = process.argv.slice(2);
