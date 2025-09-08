@@ -7,8 +7,30 @@ const cyan = "\x1b[36m";
 const yellow = "\x1b[33m";
 const reset = "\x1b[0m";
 
-//List of vowels
+//Lists for char checks
 const vowels = ["a", "e", "i", "o", "u"];
+const specialChars = [
+  "!",
+  "@",
+  "#",
+  "$",
+  "%",
+  "^",
+  "&",
+  "*",
+  "(",
+  ")",
+  "-",
+  "+",
+  "?",
+  "_",
+  "=",
+  ",",
+  "<",
+  ">",
+  "/",
+  ".",
+];
 // Input
 let args = process.argv.slice(2);
 // Variables for returned values
@@ -35,7 +57,7 @@ function preserveCapitalization(array) {
   });
   return capitalization;
 }
-function checkValidInput(args) {
+function checkValidInput(args, specialChars) {
   if (args.length === 0) {
     //   Inform Player of forgotten Input
     console.log(
@@ -44,7 +66,11 @@ function checkValidInput(args) {
     process.exit(1);
   }
   args.forEach((element) => {
-    if (element.split("").some((char) => !isNaN(char))) {
+    if (
+      element
+        .split("")
+        .some((char) => !isNaN(char) || specialChars.includes(char))
+    ) {
       console.log(
         red +
           "ERROR: Text contains invalid characters (numbers, whitespace) and can't be translated!" +
@@ -56,7 +82,7 @@ function checkValidInput(args) {
   });
 }
 // Game Logic
-function translate(args) {
+function translate(args, vowels) {
   const translatedArgs = [];
   args.forEach((element) => {
     element = element.toLowerCase();
@@ -89,9 +115,9 @@ function recapitalize(args, capitalization) {
 }
 sanitizedArgs = sanitizeInput(args);
 capitalization = preserveCapitalization(sanitizedArgs);
-checkValidInput(sanitizedArgs);
+checkValidInput(sanitizedArgs, specialChars);
 console.log(sanitizedArgs);
-translatedArgs = translate(sanitizedArgs);
+translatedArgs = translate(sanitizedArgs, vowels);
 translatedArgs = recapitalize(translatedArgs, capitalization);
 translation = translatedArgs.join(" ");
 console.log(translation);
