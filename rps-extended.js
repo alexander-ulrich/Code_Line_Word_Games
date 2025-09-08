@@ -86,7 +86,7 @@ if (player === computer) {
 
 // Output
 console.log("======================================================");
-console.log(">======> ROCK, PAPER, SCISSORS, LIZARD SPOCK! <======<");
+console.log(">=====> ROCK, PAPER, SCISSORS, LIZARD, SPOCK! <======<");
 console.log("======================================================");
 console.log(matchUp);
 console.log("======================================================");
