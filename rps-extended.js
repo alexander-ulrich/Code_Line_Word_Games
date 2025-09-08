@@ -59,31 +59,38 @@ let message = "No Winner!";
 
 // Generate Match Up String
 const matchUp =
-  "PLAYER --|" +
+  " PLAYER --| " +
   player.toUpperCase() +
   " " +
   rules[player].img +
-  "|-- VS --|" +
+  " |-- VS --| " +
   rules[computer].img +
   " " +
   computer.toUpperCase() +
-  "|-- CPU";
+  " |-- CPU";
 
 // Game Logic
+
 // Check if Draw occurs
 if (player === computer) {
-  result = "DRAW";
+  result = ">=======================> DRAW <=====================<";
   // Check if Player wins
 } else if (rules[player][computer]) {
-  result = "WIN";
+  result = ">========================> WIN <=====================<";
   message = rules[player][computer];
   // Generate Player Loss messages
 } else {
-  result = "LOSS";
+  result = ">=======================> LOSS <=====================<";
   message = rules[computer][player];
 }
 
 // Output
+console.log("======================================================");
+console.log(">======> ROCK, PAPER, SCISSORS, LIZARD SPOCK! <======<");
+console.log("======================================================");
 console.log(matchUp);
+console.log("======================================================");
+console.log(">=======================> " + message);
+console.log("======================================================");
 console.log(result);
-console.log(message);
+console.log("======================================================");
