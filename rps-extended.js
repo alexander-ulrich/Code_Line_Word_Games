@@ -31,6 +31,14 @@ const rules = {
 
 // Player Input
 const args = process.argv.slice(2);
+// Check if Player sent a move
+if (args.length === 0) {
+  //   Inform Player of forgotten Input and show List of valid Moves
+  console.log(
+    "ERROR: Player didn't select a Move! Please choose between: Rock, Paper, Scissors, Lizard and Spock!"
+  );
+  return;
+}
 const player = args[0].toString().toLowerCase();
 
 // Moves to validate Player Input
@@ -39,7 +47,7 @@ const moves = ["rock", "paper", "scissors", "lizard", "spock"];
 if (!moves.includes(player)) {
   //   Inform Player of invalid Move and show List of valid Moves
   console.log(
-    "Invalid Move! Please choose between: Rock, Paper, Scissors, Lizard and Spock!"
+    "ERROR: Invalid Move! Please choose between: Rock, Paper, Scissors, Lizard and Spock!"
   );
   return;
 }
