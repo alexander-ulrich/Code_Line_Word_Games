@@ -107,8 +107,10 @@ function translate(args, vowels) {
 function recapitalize(args, capitalization) {
   for (i in args) {
     if (capitalization[i]) {
-      args[i] = args[i].charAt(0).toUpperCase() + args[i].slice(1);
-      console.log(args[i]);
+      args[i] =
+        green + args[i].charAt(0).toUpperCase() + args[i].slice(1) + reset;
+    } else {
+      args[i] = blue + args[i] + reset;
     }
   }
   return args;
