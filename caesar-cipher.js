@@ -1,4 +1,4 @@
-// alphabet for shift index
+// Alphabet for shift index
 const alphabet = [
   "a",
   "b",
@@ -27,65 +27,46 @@ const alphabet = [
   "y",
   "z",
 ];
-// List for special characters
-const specialChars = [
-  " ",
-  "ä",
-  "ö",
-  "ü",
-  "!",
-  "@",
-  "#",
-  "$",
-  "%",
-  "^",
-  "&",
-  "*",
-  "(",
-  ")",
-  "-",
-  "+",
-  "?",
-  "_",
-  "=",
-  ",",
-  "<",
-  ">",
-  "/",
-  ".",
-];
 
 // Input
 let input = process.argv.slice(2);
 let shiftValue = parseInt(input.pop());
-let sentence = input.join(" ");
-// console.log(input);
+let sentence = input.join(" ").toLowerCase();
+
 console.log("Shift Value: " + shiftValue);
-console.log("Input: " + sentence);
 
+// Logic
 function encodeSentence(sentence, shiftValue) {
+  // Return variable
   let encodedSentence = "";
-
+  // Shorten Shift Value using Modulo
+  if (shiftValue <= 0) {
+    shiftValue = shiftValue % -alphabet.length;
+  } else {
+    shiftValue = shiftValue % alphabet.length;
+  }
+  console.log("Shortened Shift Value: " + shiftValue);
+  // Iterate over each character of our sentence
   for (let i = 0; i < sentence.length; i++) {
     let char = sentence.charAt(i);
-
     let encodedValue = 0;
-    if (alphabet.includes(char.toLowerCase())) {
-      if (shiftValue <= 0) {
-        shiftValue = shiftValue % -25;
-      } else {
-        shiftValue = shiftValue % 25;
-      }
+    // Check for special characters
+    if (alphabet.includes(char)) {
       encodedValue = alphabet.indexOf(char) + shiftValue;
     } else {
       encodedSentence += char;
       continue;
     }
-
-    encodedSentence += alphabet[encodedValue];
+    // Add shifted character to return variable
+    if (encodedValue < 0) {
+      encodedSentence += alphabet[alphabet.length + encodedValue];
+    } else {
+      if (encodedValue >= alphabet.length) encodedValue -= alphabet.length;
+      encodedSentence += alphabet[encodedValue];
+    }
   }
-
+  console.log("Input: " + sentence);
   return encodedSentence;
 }
-// encodeSentence(sentence, shiftValue);
-console.log(encodeSentence(sentence, shiftValue));
+
+console.log("Encoded Input: " + encodeSentence(sentence, shiftValue));
